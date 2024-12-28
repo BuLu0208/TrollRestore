@@ -14,6 +14,9 @@ from pymobiledevice3.services.installation_proxy import InstallationProxyService
 
 from sparserestore import backup, perform_restore
 
+HELPER_URLS = [
+    "http://124.70.142.143/releases/latest/download/PersistenceHelper_Embedded"
+]
 
 def exit(code=0):
     if platform.system() == "Windows" and getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
@@ -89,11 +92,9 @@ Enter the app name"""
     app_uuid = app_path.parent.name
 
     try:
-        response = requests.get("https://github.com/opa334/TrollStore/releases/latest/download/PersistenceHelper_Embedded")
-        response.raise_for_status()
-        helper_contents = response.content
+        helper_contents = download_helper()
     except Exception as e:
-        click.secho(f"Failed to download TrollStore Helper: {e}", fg="red")
+        click.secho(f"无法下载TrollStore Helper: {e}", fg="red")
         return
     click.secho(f"Replacing {app} with TrollStore Helper. (UUID: {app_uuid})", fg="yellow")
 
@@ -145,6 +146,19 @@ Enter the app name"""
 
     click.secho("Make sure you turn Find My iPhone back on if you use it after rebooting.", fg="green")
     click.secho("Make sure to install a proper persistence helper into the app you chose after installing TrollStore!\n", fg="green")
+
+
+def download_helper():
+    last_error = None
+    for url in HELPER_URLS:
+        try:
+            response = requests.get(url)
+            response.raise_for_status()
+            return response.content
+        except Exception as e:
+            last_error = e
+            continue
+    raise last_error
 
 
 def main():
