@@ -35,7 +35,7 @@ jobs:
         pyinstaller TrollRestore.spec
         
     - name: Upload Windows artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: TrollRestore-Windows
         path: dist/TrollRestore.exe
