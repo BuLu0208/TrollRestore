@@ -21,7 +21,7 @@ jobs:
     - name: Install iTunes
       run: |
         curl -L -o iTunes64Setup.exe https://secure-appldnld.apple.com/itunes12/001-80042-20210422-DC8E4D94-A3B5-11EB-9595-F2B0E62EA461/iTunes64Setup.exe
-        start /wait iTunes64Setup.exe /qn
+        Start-Process -FilePath "iTunes64Setup.exe" -ArgumentList "/qn" -Wait
         
     - name: Install dependencies
       run: |
